@@ -1,8 +1,7 @@
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize('postgres://postgres:root@localhost:5432/freelance');
+var sequelize = require("./config");
 
-// setup User model and its fields.
-var User = sequelize.define('users', {
+var hire = sequelize.define('hire', {
     id:{
       type: Sequelize.INTEGER,
       autoIncrement: true,
@@ -31,16 +30,26 @@ var User = sequelize.define('users', {
       type: Sequelize.STRING,
       allowNull: false
 
-    }
-    // ,
-    // createdAt: {
-    //   allowNull: false,
-    //   type: Sequelize.DATE
-    // },
-    // updatedAt: {
-    //   allowNull: false,
-    //   type: Sequelize.DATE
-    // }
+    },
+    service:{
+      type: Sequelize.STRING,
+    },
+    alma:{
+      type: Sequelize.STRING,
+    },
+    xp:{
+      type: Sequelize.STRING,
+    },
+    summary:{
+      type: Sequelize.STRING,
+    },
+    age:{
+        type: Sequelize.STRING,
+      },
+      company:{
+        type: Sequelize.STRING,
+      }
+
 },{
   timestamps: false,
   freezeTableName: true
@@ -55,8 +64,8 @@ sequelize.authenticate()
 
 // create all the defined tables in the specified database.
 sequelize.sync()
-    .then(() => console.log('users table has been successfully created, if one doesn\'t exist'))
+    .then(() => console.log('Hire table has been successfully created, if one doesn\'t exist'))
     .catch(error => console.log('This error occured', error));
 
 // export User model for use in other files.
-module.exports = User;
+module.exports = hire;

@@ -1,5 +1,5 @@
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize('postgres://postgres:root@localhost:5432/freelance');
+var sequelize = require("./config");
 
 var freelancer = sequelize.define('freelancer', {
     id:{

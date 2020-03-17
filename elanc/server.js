@@ -6,11 +6,24 @@ var hire=require('./model/hire');
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const app = express();
-const PORT = 3600;
+const PORT = process.env.PORT || 3600;
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.static(('/client/public')));
+const path = require('path')
+const dev=app.get('env') !== 'production'
 
-//For Sign-In
+
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'client/build')));
+// app.get("/",(req,res)=>{
+//       console.log(PORT)
+//     res.sendFile(path.join(__dirname,'/client/public/index.html'))
+// })
+
+
 app.post('/loginit',(req, res) => {
       console.log("Inside post");
 
@@ -205,6 +218,9 @@ app.get("/Particular1/:email",(req,res)=>{
   });
 })
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname+'/client/build/index.html'));
+  });
 
 app.listen(PORT, () => {
   console.log(`Server running at: http://localhost:${PORT}/`);
